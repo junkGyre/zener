@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zener Card Picker</title>
+    <style>
+        body {
+            font-size: 16px;
+            text-align: center;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333333;
+        }
+
+        .card-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .card {
+            width: 120px;
+            height: 180px;
+            margin: 10px;
+            cursor: pointer;
+            background-color: #ffffff;
+            border: 2px solid #333333;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #333333;
+        }
+
+        #score {
+            margin-top: 10px;
+            color: #555555;
+        }
+    </style>
+</head>
+<body>
+    <h1>Zener Card Experiment</h1>
+    <p>Click on a card to make your choice. Can you sense the hidden symbol?</p>
+
+    <div class="card-container">
+        <div class="card" id="circle" onclick="selectCard('Circle')">
+            <img src="circle.png" alt="Circle">
+        </div>
+        <div class="card" id="cross" onclick="selectCard('Cross')">
+            <img src="cross.png" alt="Cross">
+        </div>
+        <div class="card" id="square" onclick="selectCard('Square')">
+            <img src="square.png" alt="Square">
+        </div>
+        <div class="card" id="star" onclick="selectCard('Star')">
+            <img src="star.png" alt="Star">
+        </div>
+        <div class="card" id="wavy-lines" onclick="selectCard('Wavy Lines')">
+            <img src="wavy_lines.png" alt="Wavy Lines">
+        </div>
+    </div>
+
+    <p id="result"></p>
+    <p id="score">Total Guesses: 0, Correct: 0, Percentage: 0%</p>
+
+    <script>
+        let totalGuesses = 0;
+        let correctGuesses = 0;
+
+        function selectCard(card) {
+            const targetCard = get_random_card();
+            totalGuesses++;
+
+            console.log(`User picked: ${card}`);
+            console.log(`Correct symbol is: ${targetCard}`);
+
+            document.getElementById("result").textContent = `You picked ${card}. The hidden symbol is: ${targetCard}`;
+
+            if (card === targetCard) {
+                correctGuesses++;
+                console.log("Correct guess!");
+            } else {
+                console.log("Incorrect guess.");
+            }
+
+            const percentage = ((correctGuesses / totalGuesses) * 100).toFixed(2);
+            document.getElementById("score").textContent = `Total Guesses: ${totalGuesses}, Correct: ${correctGuesses}, Percentage: ${percentage}%`;
+
+            console.log(`Total Guesses: ${totalGuesses}, Correct: ${correctGuesses}, Percentage: ${percentage}%`);
+        }
+
+        function get_random_card() {
+            const symbols = ['Circle', 'Cross', 'Square', 'Star', 'Wavy Lines'];
+            const randomCard = symbols[Math.floor(Math.random() * symbols.length)];
+            console.log(`Hidden symbol is: ${randomCard}`);
+            return randomCard;
+        }
+    </script>
+</body>
+</html>
+
